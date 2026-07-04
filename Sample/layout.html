@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visual Style Template</title>
+  <style>
+    :root {
+      /* 色彩系统 */
+      --color-bg-pure:      #ffffff;
+      --color-bg-light:     #efefef;
+      --color-bg-dark:      #2c3e6b;
+      --color-bg-teal:      #9bbfc2;
+      --color-accent:       #a855f7;
+      --color-text-main:    #1a1a1a;
+      --color-text-muted:   #555555;
+      --color-text-white:   #ffffff;
+
+      /* 排版系统 */
+      --font-display:       'Georgia', serif;
+      --font-body:          'Arial', sans-serif;
+      
+      /* 间距及形态 */
+      --max-width:          1200px;
+      --radius-widget:      12px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--color-text-main);
+      background-color: var(--color-bg-pure);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* [模块 1] Hero 首屏 */
+    .hero {
+      display: flex;
+      min-height: 550px;
+      width: 100%;
+    }
+    .hero-left {
+      flex: 1.1;
+      background: var(--color-bg-pure);
+      padding: 80px 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .hero-title-box {
+      border: 3px solid var(--color-accent);
+      padding: 30px;
+      margin-bottom: 24px;
+      max-width: 500px;
+    }
+    .hero-title-box h1 {
+      font-family: var(--font-display);
+      font-size: 48px;
+      line-height: 1.1;
+      font-weight: 700;
+    }
+    .hero-desc {
+      font-size: 16px;
+      color: var(--color-text-muted);
+      max-width: 450px;
+    }
+    .hero-right {
+      flex: 0.9;
+      background: #ced4da; /* 模拟大图背景占位 */
+      clip-path: polygon(15% 0, 100% 0, 100% 100%, 0 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #777;
+    }
+
+    /* [模块 2] Initiatives 倡议区 */
+    .initiatives {
+      padding: 100px 60px;
+      background: var(--color-bg-pure);
+      text-align: center;
+    }
+    .initiatives h2 {
+      font-family: var(--font-display);
+      font-size: 42px;
+      margin-bottom: 60px;
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+    .card {
+      display: flex;
+      flex-direction: column;
+      border-radius: 0; /* 严格直角 */
+    }
+    .card-media {
+      height: 220px;
+      background: #adb5bd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .video-play-mock {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.4);
+    }
+    .card-content {
+      background: var(--color-bg-dark);
+      color: var(--color-text-white);
+      padding: 30px 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .card-content h3 {
+      font-family: var(--font-display);
+      font-size: 24px;
+      margin-bottom: 16px;
+    }
+    .card-content p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.8);
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+    .card-btn-mock {
+      background: var(--color-bg-teal);
+      color: var(--color-text-white);
+      padding: 8px 16px;
+      font-size: 14px;
+      width: fit-content;
+    }
+
+    /* 核心公用：左右非对称分栏大色块拼接结构 */
+    .split-section {
+      display: flex;
+      width: 100%;
+    }
+    .split-left {
+      width: 35%;
+      padding: 80px 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+    .split-left h2 {
+      font-family: var(--font-display);
+      font-size: 42px;
+      line-height: 1.2;
+      margin-bottom: 24px;
+    }
+    .split-left p {
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    .split-right {
+      width: 65%;
+      background: var(--color-bg-light);
+      padding: 80px 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 48px;
+    }
+
+    /* [模块 3] Success stories 专属配色与组件 */
+    .stories-section .split-left {
+      background: var(--color-bg-dark);
+      color: var(--color-text-white);
+    }
+    .stories-section .split-left p {
+      color: rgba(255,255,255,0.7);
+    }
+    .story-item {
+      display: flex;
+      gap: 24px;
+      max-width: 700px;
+    }
+    .story-avatar-mock {
+      width: 120px;
+      height: 120px;
+      background: #adb5bd;
+      flex-shrink: 0;
+    }
+    .story-text-mock {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      justify-content: center;
+    }
+    .line-long { width: 100%; height: 12px; background: #e0e0e0; }
+    .line-mid { width: 75%; height: 12px; background: #e0e0e0; }
+    .line-short { width: 25%; height: 10px; background: #ccc; margin-top: 4px; }
+
+    /* [模块 4] Impact metrics 专属配色与组件 */
+    .impact-section .split-left {
+      background: var(--color-bg-teal);
+      color: var(--color-text-white);
+    }
+    .impact-section .split-left p {
+      color: rgba(255,255,255,0.9);
+    }
+    .metric-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 1px solid #dbdbdb;
+      padding-bottom: 24px;
+      max-width: 700px;
+    }
+    .metric-label-mock {
+      width: 25%;
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 18px;
+    }
+    .metric-detail-mock {
+      width: 65%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .metric-arrow-mock {
+      width: 40px;
+      height: 12px;
+      background: #ccc;
+      align-self: flex-end;
+    }
+
+    /* [模块 5] Donate 专属配色与组件 */
+    .donate-section .split-left {
+      background: var(--color-bg-dark);
+      color: var(--color-text-white);
+    }
+    .widget-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+    /* 募捐独立组件微件样式 */
+    .donate-widget-mock {
+      background: var(--color-bg-pure);
+      border-radius: var(--radius-widget);
+      padding: 30px;
+      width: 100%;
+      max-width: 440px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .widget-row { display: flex; justify-content: space-between; background: #eee; height: 16px; width: 60%; }
+    .widget-progress-bar {
+      height: 12px;
+      background: #e9ecef;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .widget-progress-fill {
+      height: 100%;
+      width: 45%;
+      background: var(--color-accent);
+    }
+    .widget-btn {
+      background: var(--color-accent);
+      height: 44px;
+      border-radius: 4px;
+    }
+
+    /* [模块 6] Contact us 页脚大图区 */
+    .footer-contact {
+      background: #212529; /* 模拟深色大图背景 */
+      color: var(--color-text-white);
+      padding: 100px 60px;
+    }
+    .footer-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+    .footer-inner h2 {
+      font-family: var(--font-display);
+      font-size: 42px;
+    }
+    .footer-block-mock {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .footer-line-sm {
+      width: 200px;
+      height: 10px;
+      background: rgba(255,255,255,0.3);
+    }
+    .footer-line-xs {
+      width: 100px;
+      height: 10px;
+      background: rgba(255,255,255,0.2);
+    }
+  </style>
+</head>
+<body>
+
+  <section class="hero">
+    <div class="hero-left">
+      <div class="hero-title-box">
+        <h1>衬线标题框样式</h1>
+      </div>
+      <div class="hero-desc">
+        <div class="line-long" style="margin-bottom:8px;"></div>
+        <div class="line-mid"></div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <span>大图斜切占位</span>
+    </div>
+  </section>
+
+  <section class="initiatives">
+    <h2>模块居中标题</h2>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-media"><div class="video-play-mock"></div></div>
+        <div class="card-content">
+          <h3>项目标题</h3>
+          <p>此处为标准正文排版行高占位，整体采用居中对齐收口形式。</p>
+          <div class="card-btn-mock">CTA 标签</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-media"><div class="video-play-mock"></div></div>
+        <div class="card-content">
+          <h3>项目标题</h3>
+          <p>此处为标准正文排版行高占位，整体采用居中对齐收口形式。</p>
+          <div class="card-btn-mock">CTA 标签</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-media"><div class="video-play-mock"></div></div>
+        <div class="card-content">
+          <h3>项目标题</h3>
+          <p>此处为标准正文排版行高占位，整体采用居中对齐收口形式。</p>
+          <div class="card-btn-mock">CTA 标签</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="split-section stories-section">
+    <div class="split-left">
+      <h2>非对称<br>深色通栏标题</h2>
+      <p>下方配合短小段落说明占位。</p>
+    </div>
+    <div class="split-right">
+      <div class="story-item">
+        <div class="story-avatar-mock"></div>
+        <div class="story-text-mock">
+          <div class="line-long"></div>
+          <div class="line-mid"></div>
+          <div class="line-short"></div>
+        </div>
+      </div>
+      <div class="story-item">
+        <div class="story-avatar-mock"></div>
+        <div class="story-text-mock">
+          <div class="line-long"></div>
+          <div class="line-mid"></div>
+          <div class="line-short"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="split-section impact-section">
+    <div class="split-left">
+      <h2>调和色块<br>标题风格</h2>
+      <p>下方配合短小段落说明占位。</p>
+    </div>
+    <div class="split-right">
+      <div class="metric-item">
+        <div class="metric-label-mock">加粗分类</div>
+        <div class="metric-detail-mock">
+          <div class="line-long"></div>
+          <div class="metric-arrow-mock"></div>
+        </div>
+      </div>
+      <div class="metric-item">
+        <div class="metric-label-mock">加粗分类</div>
+        <div class="metric-detail-mock">
+          <div class="line-long"></div>
+          <div class="metric-arrow-mock"></div>
+        </div>
+      </div>
+      <div class="metric-item">
+        <div class="metric-label-mock">加粗分类</div>
+        <div class="metric-detail-mock">
+          <div class="line-long"></div>
+          <div class="metric-arrow-mock"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="split-section donate-section">
+    <div class="split-left">
+      <h2>深色拼接<br>侧边栏</h2>
+    </div>
+    <div class="split-right">
+      <div class="widget-container">
+        <div class="donate-widget-mock">
+          <div class="widget-row"></div>
+          <div class="widget-row" style="width:40%;"></div>
+          <div class="widget-progress-bar">
+            <div class="widget-progress-fill"></div>
+          </div>
+          <div class="widget-btn"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer-contact">
+    <div class="footer-inner">
+      <h2>页脚通栏大标题</h2>
+      <div class="footer-block-mock">
+        <div class="footer-line-xs"></div>
+        <div class="footer-line-sm"></div>
+      </div>
+      <div class="footer-block-mock">
+        <div class="footer-line-xs"></div>
+        <div class="footer-line-sm"></div>
+      </div>
+      <div class="footer-line-xs" style="width:60px; margin-top:20px;"></div>
+    </div>
+  </footer>
+
+</body>
+</html>
