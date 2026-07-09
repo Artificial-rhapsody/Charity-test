@@ -1,0 +1,14 @@
+name = "cybershield-api"
+main = "src/index.js"
+compatibility_date = "2024-12-01"
+
+[vars]
+JWT_SECRET = "cybershield-dev-secret-change-in-production"
+ENVIRONMENT = "development"
+
+# Create KV namespace with: wrangler kv namespace create USERS_KV
+# Then fill in the IDs below
+[[kv_namespaces]]
+binding = "USERS_KV"
+id = "5960c544891644308bb29fc9ae0c8330"
+preview_id = "cda7274a34fc42d6b8a7b60b4b271264"

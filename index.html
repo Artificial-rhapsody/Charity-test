@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="no-referrer">
+  <title>CyberShield — Youth Anti-Fraud Initiative</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ======== Navbar ======== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <span class="logo-icon">&#9829;</span>
+        <span class="logo-text">MS.WYH</span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#videos">Videos</a></li>
+        <li><a href="#articles">Articles</a></li>
+        <li><a href="#reports">Reports</a></li>
+        <li><a href="#honors">Honors</a></li>
+        <li id="navJoinUs"><a href="#contact" class="nav-cta">Join Us</a></li>
+        <li id="navLogin"><a href="#" class="nav-cta nav-login-btn" id="loginBtn">Login</a></li>
+        <li id="navUsername" style="display:none;"><a href="#" class="nav-cta nav-user-display" id="userDisplay"></a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ======== Login Modal ======== -->
+  <div class="modal-overlay" id="loginModal">
+    <div class="modal-box login-modal">
+      <button class="modal-close" id="loginModalClose">&times;</button>
+      <h3>Welcome Back</h3>
+      <p class="modal-subtitle">Log in to your CyberShield account</p>
+      <form id="loginForm">
+        <div class="modal-form-group">
+          <label for="loginEmail">Email</label>
+          <input type="email" id="loginEmail" placeholder="your@email.com" required>
+        </div>
+        <div class="modal-form-group">
+          <label for="loginPassword">Password</label>
+          <input type="password" id="loginPassword" placeholder="Your password" required>
+        </div>
+        <button type="submit" class="modal-submit">Log In</button>
+      </form>
+      <p class="modal-footer-text">Don't have an account? <a href="#contact" id="goToRegister">Join Us</a></p>
+    </div>
+  </div>
+
+  <!-- ======== Success Modal (Thank You) ======== -->
+  <div class="modal-overlay" id="successModal">
+    <div class="modal-box success-modal">
+      <button class="modal-close" id="successModalClose">&times;</button>
+      <div class="success-icon">&#10003;</div>
+      <h3>Thank You For Your Support !</h3>
+      <p class="modal-subtitle">Your application has been submitted successfully. We will contact you soon.</p>
+      <button class="modal-submit" id="successModalOk">OK</button>
+    </div>
+  </div>
+
+  <!-- ======== Fireworks Canvas ======== -->
+  <canvas id="fireworksCanvas"></canvas>
+
+  <!-- ======== [Section 1] Hero ======== -->
+  <section class="hero" id="hero">
+    <div class="hero-left">
+      <div class="hero-title-box">
+        <h1>Protect Youth<br>Defeat Fraud</h1>
+      </div>
+      <p class="hero-desc">
+        A public welfare platform dedicated to educating teenagers about telecom fraud prevention.<br>
+        Knowledge is the first line of defense.
+      </p>
+      <div class="hero-actions">
+        <a href="#videos" class="btn-primary">Watch Videos</a>
+        <a href="#contact" class="btn-outline">Volunteer</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-number" data-count="50000">0</span><span class="stat-suffix">+</span>
+          <span class="stat-label">Youth Reached</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number" data-count="120">0</span><span class="stat-suffix">+</span>
+          <span class="stat-label">Campus Talks</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number" data-count="30">0</span><span class="stat-suffix">+</span>
+          <span class="stat-label">Partner Schools</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <img
+        src="https://picsum.photos/960/1080?random=1"
+        alt="Youth anti-fraud education"
+        class="hero-img"
+      >
+    </div>
+  </section>
+
+  <!-- ======== [Section 2] Videos — 3-column cards ======== -->
+  <section class="initiatives" id="videos">
+    <h2 class="section-title">Anti-Fraud Videos</h2>
+    <p class="section-subtitle">Vivid video case studies to help teenagers quickly identify common telecom fraud tactics</p>
+    <div class="card-grid">
+      <div class="card video-card" data-bvid="BV1LN411o7YY">
+        <div class="card-media">
+          <img class="card-media-bg" src="https://i1.hdslb.com/bfs/archive/2442de6060020c47419c50ec56de638c8eaf9734.png" alt="" referrerpolicy="no-referrer">
+          <div class="video-play-btn">
+            <svg viewBox="0 0 24 24" fill="white" width="28" height="28"><polygon points="5,3 19,12 5,21"/></svg>
+          </div>
+          <span class="card-tag">Popular</span>
+        </div>
+        <div class="card-content">
+          <h3>Online Task Scams Exposed</h3>
+          <p>"Easy money, work from home" — the trap behind fake part-time job offers that lure teenagers step by step into financial fraud.</p>
+          <span class="card-btn">Watch Video &rarr;</span>
+        </div>
+      </div>
+      <div class="card video-card" data-bvid="BV1mvpee4EUi">
+        <div class="card-media">
+          <img class="card-media-bg" src="https://i1.hdslb.com/bfs/archive/68ceaecc1787dff9fa70b86a6801be429ee5b61d.jpg" alt="" referrerpolicy="no-referrer">
+          <div class="video-play-btn">
+            <svg viewBox="0 0 24 24" fill="white" width="28" height="28"><polygon points="5,3 19,12 5,21"/></svg>
+          </div>
+          <span class="card-tag">Must Watch</span>
+        </div>
+        <div class="card-content">
+          <h3>Fake Customer Service Refunds</h3>
+          <p>"Your order has an issue, please cooperate for a refund" — a full breakdown of how scammers impersonate e-commerce support.</p>
+          <span class="card-btn">Watch Video &rarr;</span>
+        </div>
+      </div>
+      <div class="card video-card" data-bvid="BV1DJ4m1u7SD">
+        <div class="card-media">
+          <img class="card-media-bg" src="https://i1.hdslb.com/bfs/archive/71833d763acc27c79c0cdcd15854b077f7486464.png" alt="" referrerpolicy="no-referrer">
+          <div class="video-play-btn">
+            <svg viewBox="0 0 24 24" fill="white" width="28" height="28"><polygon points="5,3 19,12 5,21"/></svg>
+          </div>
+          <span class="card-tag">New</span>
+        </div>
+        <div class="card-content">
+          <h3>Gaming Account Trade Traps</h3>
+          <p>Free skins, cheap top-ups, account trading — exposing common online scam tactics targeting young gamers.</p>
+          <span class="card-btn">Watch Video &rarr;</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== [Section 3] Articles — 1:2 split (navy | white) ======== -->
+  <section class="split-section articles-section" id="articles">
+    <div class="split-left">
+      <span class="split-label">Knowledge Is Defense</span>
+      <h2>Anti-Fraud<br>Articles</h2>
+      <p>Accessible and in-depth fraud prevention guides to help teenagers build a comprehensive awareness of scam tactics.</p>
+      <a href="#" class="split-link">View All Articles &rarr;</a>
+    </div>
+    <div class="split-right">
+      <!-- Featured article — large card -->
+      <article class="article-featured">
+        <div class="article-featured-img">
+          <img src="https://picsum.photos/720/340?random=2" alt="Featured article">
+          <span class="article-featured-tag">Featured</span>
+        </div>
+        <div class="article-featured-body">
+          <h4>Six Most Common Types of Telecom Fraud</h4>
+          <p>From impersonating law enforcement to online loan scams — a comprehensive guide to the six most prevalent fraud types, each with real case analysis and prevention tips.</p>
+          <div class="article-featured-meta">
+            <span>Dec 2024</span>
+            <span>32K reads</span>
+            <a href="#">Read More &rarr;</a>
+          </div>
+        </div>
+      </article>
+      <!-- Two smaller article cards in a row -->
+      <div class="article-pair">
+        <article class="article-small">
+          <div class="article-small-icon">
+            <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="#a855f7" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+          </div>
+          <h4>Got a Suspicious Call? A 3-Step Self-Rescue Guide</h4>
+          <span class="article-small-meta">Nov 2024 &middot; 28K reads</span>
+        </article>
+        <article class="article-small">
+          <div class="article-small-icon">
+            <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="#a855f7" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          </div>
+          <h4>How to Spot Romance Scams on Social Media</h4>
+          <span class="article-small-meta">Oct 2024 &middot; 41K reads</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== [Section 4] Reports — 1:2 split (teal | light-gray) ======== -->
+  <section class="split-section impact-section" id="reports">
+    <div class="split-left">
+      <span class="split-label">Action Creates Change</span>
+      <h2>Activity<br>Reports</h2>
+      <p>Documenting every campus and community anti-fraud campaign — measuring our impact with real data.</p>
+      <a href="#" class="split-link">View All Reports &rarr;</a>
+    </div>
+    <div class="split-right">
+      <!-- Stat grid: 4 numbers in 2x2 -->
+      <div class="report-stats-grid">
+        <div class="report-stat">
+          <span class="report-stat-number">35,000+</span>
+          <span class="report-stat-label">Students Reached</span>
+        </div>
+        <div class="report-stat">
+          <span class="report-stat-number">128</span>
+          <span class="report-stat-label">Workshops Held</span>
+        </div>
+        <div class="report-stat">
+          <span class="report-stat-number">56</span>
+          <span class="report-stat-label">Schools Visited</span>
+        </div>
+        <div class="report-stat">
+          <span class="report-stat-number">20M+</span>
+          <span class="report-stat-label">Video Views</span>
+        </div>
+      </div>
+      <!-- Highlight report card -->
+      <div class="report-highlight">
+        <div class="report-highlight-bar"></div>
+        <div class="report-highlight-body">
+          <span class="report-highlight-tag">Latest Report</span>
+          <h4>2024 Fall Campus Anti-Fraud Tour</h4>
+          <p>Covering 12 cities including Beijing, Shanghai, and Guangzhou. Over 8,000 families participated in our summer community program, with 50,000+ prevention handbooks distributed nationwide.</p>
+          <a href="#" class="report-highlight-link">Download Full Report &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== [Section 5] Honors — 1:2 split (navy | white) ======== -->
+  <section class="split-section honors-section" id="honors">
+    <div class="split-left">
+      <span class="split-label">Forging Ahead</span>
+      <h2>Honors &<br>Recognition</h2>
+      <p>Every honor is an affirmation of our public welfare efforts and a driving force to keep moving forward.</p>
+    </div>
+    <div class="split-right">
+      <div class="honors-grid">
+        <div class="honor-card">
+          <div class="honor-card-top">
+            <div class="honor-medal">
+              <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="#a855f7" stroke-width="1.5"><circle cx="12" cy="8" r="6"/><path d="M8.21 13.89L7 23l5-3 5 3-1.21-9.12"/></svg>
+            </div>
+            <div class="honor-card-year">2024</div>
+          </div>
+          <div class="honor-card-badge">National</div>
+          <h4>Outstanding Youth Cybersecurity Education Project</h4>
+          <p>Jointly awarded by the Cyberspace Administration and Ministry of Education for outstanding contributions to youth cybersecurity education.</p>
+        </div>
+        <div class="honor-card">
+          <div class="honor-card-top">
+            <div class="honor-medal">
+              <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="#a855f7" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <div class="honor-card-year">2024</div>
+          </div>
+          <div class="honor-card-badge">Provincial</div>
+          <h4>Best Anti-Fraud Public Welfare Organization of the Year</h4>
+          <p>Awarded by the Provincial Public Security Bureau for positive social impact and innovative communication in anti-fraud education.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== [Section 6] Contact / Register ======== -->
+  <footer class="footer-contact" id="contact">
+    <div class="footer-inner">
+      <div class="footer-header">
+        <h2>Join CyberShield</h2>
+        <p class="footer-subtitle">Become an anti-fraud volunteer and help us protect the digital safety of young people</p>
+      </div>
+      <form class="contact-form" id="contactForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="userName">Name *</label>
+            <input type="text" id="userName" name="name" placeholder="Your full name" required>
+          </div>
+          <div class="form-group">
+            <label for="userAge">Age</label>
+            <input type="number" id="userAge" name="age" placeholder="Your age" min="10" max="99">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="userEmail">Email *</label>
+            <input type="email" id="userEmail" name="email" placeholder="example@email.com" required>
+          </div>
+          <div class="form-group">
+            <label for="userPhone">Phone</label>
+            <input type="tel" id="userPhone" name="phone" placeholder="Your phone number">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="userPassword">Password *</label>
+            <input type="password" id="userPassword" name="password" placeholder="At least 6 characters" minlength="6" required>
+          </div>
+          <div class="form-group">
+            <label for="userPasswordConfirm">Confirm Password *</label>
+            <input type="password" id="userPasswordConfirm" name="passwordConfirm" placeholder="Re-enter your password" minlength="6" required>
+          </div>
+        </div>
+        <div class="form-group full-width">
+          <label for="userRole">Volunteer Role</label>
+          <select id="userRole" name="role">
+            <option value="">Select your area of interest</option>
+            <option value="lecturer">Campus Speaker</option>
+            <option value="creator">Content Creator</option>
+            <option value="community">Community Outreach</option>
+            <option value="tech">Tech Support</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="form-group full-width">
+          <label for="userMessage">Message</label>
+          <textarea id="userMessage" name="message" rows="4" placeholder="Tell us a bit about yourself and why you'd like to join CyberShield..."></textarea>
+        </div>
+        <button type="submit" class="form-submit">Submit Application</button>
+      </form>
+      <div class="footer-bottom">
+        <div class="footer-info">
+          <p>contact@cybershield.org &nbsp; | &nbsp; +86 400-XXX-XXXX</p>
+          <p>&copy; 2024 CyberShield — Youth Anti-Telecom Fraud Initiative &nbsp; All Rights Reserved</p>
+        </div>
+        <div class="footer-social">
+          <a href="#" aria-label="WeChat">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.328.328 0 0 0 .186-.059l1.875-1.089a.587.587 0 0 1 .491-.029c1.082.38 2.238.59 3.072.59.146 0 .287-.014.431-.021-.135-.457-.208-.932-.208-1.422 0-3.476 3.39-6.297 7.572-6.297.182 0 .359.018.536.029C16.398 4.676 12.898 2.188 8.691 2.188zm-2.5 4.56a1.06 1.06 0 1 1 0-2.12 1.06 1.06 0 0 1 0 2.12zm5.06 0a1.06 1.06 0 1 1 0-2.12 1.06 1.06 0 0 1 0 2.12zm4.863 10.144c-3.606 0-6.531-2.402-6.531-5.363s2.925-5.363 6.531-5.363S22.614 8.568 22.614 11.53s-2.925 5.362-6.5 5.362zm-2.69-6.43a.87.87 0 1 1 0-1.74.87.87 0 0 1 0 1.74zm5.38 0a.87.87 0 1 1 0-1.74.87.87 0 0 1 0 1.74z"/></svg>
+          </a>
+          <a href="#" aria-label="Weibo">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M10.098 20.323c-3.977.391-7.414-1.406-7.672-4.02-.259-2.609 2.759-5.047 6.74-5.441 3.979-.394 7.413 1.404 7.671 4.018.259 2.6-2.759 5.049-6.739 5.443zM20.196 9.4c-.194-.636-.897-.938-1.49-.795-.594.144-.924.773-.736 1.396.375 1.264.182 2.654-.605 3.763-.788 1.108-2.043 1.796-3.357 1.899-.662.052-1.098.596-1.045 1.218.052.609.558 1.077 1.175 1.025 1.918-.152 3.737-1.166 4.89-2.781 1.153-1.616 1.45-3.634.882-5.477l.286-.248zm2.002-2.564c-1.112-1.748-3.165-2.631-5.282-2.405-.583.063-.994.575-.923 1.148.073.573.603.97 1.183.907 1.365-.146 2.713.427 3.434 1.563.721 1.137.705 2.553-.035 3.629-.396.573-.253 1.354.32 1.748.573.396 1.354.252 1.748-.321 1.153-1.666 1.169-3.871.055-5.62l-.5-.649z"/></svg>
+          </a>
+          <a href="#" aria-label="Bilibili">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M17.813 4.653h.854c1.51.054 2.769.578 3.773 1.574 1.004.995 1.524 2.249 1.56 3.76v7.36c-.036 1.51-.556 2.769-1.56 3.773s-2.262 1.524-3.773 1.56H5.333c-1.51-.036-2.769-.556-3.773-1.56S.036 18.858 0 17.347v-7.36c.036-1.511.556-2.765 1.56-3.76 1.004-.996 2.262-1.52 3.773-1.574h.774l-1.174-1.12a1.234 1.234 0 0 1-.373-.906c0-.356.124-.658.373-.907l.027-.027c.267-.249.573-.373.92-.373.347 0 .653.124.92.373L9.653 4.44c.071.071.134.142.187.213h4.267a.836.836 0 0 1 .16-.213l2.853-2.747c.267-.249.573-.373.92-.373.347 0 .662.124.929.373.249.249.373.551.373.907 0 .356-.124.657-.373.906L17.813 4.653zM5.333 7.24c-.746.018-1.373.276-1.88.773-.506.498-.769 1.13-.786 1.894v7.52c.017.764.28 1.395.786 1.893.507.498 1.134.756 1.88.773h13.334c.746-.017 1.373-.275 1.88-.773.506-.498.769-1.129.786-1.893v-7.52c-.017-.765-.28-1.396-.786-1.894-.507-.497-1.134-.755-1.88-.773H5.333zM8 11.107c.373 0 .684.124.933.373.25.249.383.569.4.96v1.173c-.017.391-.15.711-.4.96-.249.25-.56.374-.933.374s-.684-.125-.933-.374c-.25-.249-.383-.569-.4-.96V12.44c.017-.391.15-.711.4-.96.249-.249.56-.373.933-.373zm8 0c.373 0 .684.124.933.373.25.249.383.569.4.96v1.173c-.017.391-.15.711-.4.96-.249.25-.56.374-.933.374s-.684-.125-.933-.374c-.25-.249-.383-.569-.4-.96V12.44c.017-.391.15-.711.4-.96.249-.249.56-.373.933-.373z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ======== Video Modal ======== -->
+  <div class="video-modal" id="videoModal">
+    <div class="video-modal-backdrop" id="videoModalBackdrop"></div>
+    <div class="video-modal-container">
+      <button class="video-modal-close" id="videoModalClose" aria-label="Close">&times;</button>
+      <div class="video-modal-player">
+        <iframe
+          id="videoModalIframe"
+          src="about:blank"
+          scrolling="no"
+          border="0"
+          frameborder="no"
+          framespacing="0"
+          allowfullscreen="true"
+        ></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
