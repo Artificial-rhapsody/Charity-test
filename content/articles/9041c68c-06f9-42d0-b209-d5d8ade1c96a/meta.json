@@ -1,0 +1,10 @@
+{
+  "id": "9041c68c-06f9-42d0-b209-d5d8ade1c96a",
+  "title": "Cloudflare Publishing Smoke Test",
+  "summary": "Temporary content proving Cloudflare Worker to GitHub publishing works.",
+  "publishedAt": "2026-08-16",
+  "pinned": false,
+  "order": 0,
+  "author": "CyberShield",
+  "cover": ""
+}
