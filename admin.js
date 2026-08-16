@@ -48,6 +48,13 @@ function countFields(value) {
 }
 
 async function detectMode() {
+  const local = location.hostname === '127.0.0.1' || location.hostname === 'localhost' || location.hostname === '';
+  if (!local) {
+    publishMode = 'remote';
+    $('modeBadge').textContent = 'DEPLOYMENT PREVIEW';
+    $('metricTarget').textContent = 'GitHub';
+    return;
+  }
   try {
     const response = await fetch(`${LOCAL_PUBLISH_API}/health`);
     if (!response.ok) throw new Error('offline');
