@@ -1,10 +1,11 @@
 name = "cybershield-api"
 main = "src/index.js"
-compatibility_date = "2024-12-01"
+compatibility_date = "2026-08-16"
 
 [vars]
-ENVIRONMENT = "development"
-GITHUB_REPOSITORY = "OWNER/Charity-test"
+ENVIRONMENT = "production"
+ALLOWED_ORIGIN = "https://artificial-rhapsody.github.io"
+GITHUB_REPOSITORY = "Artificial-rhapsody/Charity-test"
 GITHUB_BRANCH = "main"
 
 # Create KV namespace with: wrangler kv namespace create USERS_KV

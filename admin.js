@@ -1,7 +1,7 @@
 'use strict';
 
 const LOCAL_PUBLISH_API = 'http://127.0.0.1:8790';
-const REMOTE_API = window.CHARITY_API_BASE || 'http://localhost:8787';
+const REMOTE_API = window.CHARITY_API_BASE || (location.hostname === 'localhost' || location.hostname === '127.0.0.1' ? 'http://localhost:8787' : 'https://cybershield-api.hatayoru.workers.dev');
 const content = window.CharityContent;
 const $ = (id) => document.getElementById(id);
 let site;

@@ -1,6 +1,6 @@
 'use strict';
 
-const API_BASE = window.CHARITY_API_BASE || 'http://localhost:8787';
+const API_BASE = window.CHARITY_API_BASE || (location.hostname === 'localhost' || location.hostname === '127.0.0.1' ? 'http://localhost:8787' : 'https://cybershield-api.hatayoru.workers.dev');
 const CONTENT = window.CharityContent;
 let siteData;
 let articleData = [];

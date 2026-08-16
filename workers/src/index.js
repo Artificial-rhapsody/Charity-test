@@ -12,21 +12,26 @@
 
 // ─── Helpers ────────────────────────────────────────────────
 
-const CORS_HEADERS = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-};
+function corsHeaders(request, env) {
+  const origin = request?.headers.get('Origin');
+  const allowed = env?.ALLOWED_ORIGIN || 'https://artificial-rhapsody.github.io';
+  return {
+    'Access-Control-Allow-Origin': allowed === '*' || origin === allowed ? (origin || allowed) : allowed,
+    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    'Vary': 'Origin',
+  };
+}
 
-function jsonResponse(data, status = 200) {
+function jsonResponse(data, status = 200, request, env) {
   return new Response(JSON.stringify(data), {
     status,
-    headers: { 'Content-Type': 'application/json', ...CORS_HEADERS },
+    headers: { 'Content-Type': 'application/json', ...corsHeaders(request, env) },
   });
 }
 
-function handleCORS() {
-  return new Response(null, { status: 204, headers: CORS_HEADERS });
+function handleCORS(request, env) {
+  return new Response(null, { status: 204, headers: corsHeaders(request, env) });
 }
 
 // ─── Crypto: HMAC-SHA256 JWT ────────────────────────────────
@@ -312,7 +317,20 @@ async function handleAdminPublish(request, env) {
 
 async function handleAdminDelete(request, env) {
   if (!await requireAdmin(request, env)) return jsonResponse({ ok: false, error: 'Administrator access required' }, 403);
-  return jsonResponse({ ok: false, error: 'Remote recursive deletion will be enabled during deployment setup' }, 501);
+  const body = await request.json();
+  if (!/^content\/(articles|reports|honors)\/[0-9a-f-]{36}$/.test(body.path || '')) return jsonResponse({ ok: false, error: 'Invalid article path' }, 400);
+  const repository = env.GITHUB_REPOSITORY;
+  const branch = env.GITHUB_BRANCH || 'main';
+  const ref = await githubRequest(env, `/repos/${repository}/git/ref/heads/${encodeURIComponent(branch)}`);
+  const commit = await githubRequest(env, `/repos/${repository}/git/commits/${ref.object.sha}`);
+  const treeData = await githubRequest(env, `/repos/${repository}/git/trees/${commit.tree.sha}?recursive=1`);
+  const entries = treeData.tree.filter((entry) => entry.type === 'blob' && entry.path.startsWith(`${body.path}/`));
+  if (!entries.length) return jsonResponse({ ok: false, error: 'Article directory not found' }, 404);
+  const tree = entries.map((entry) => ({ path: entry.path, mode: '100644', type: 'blob', sha: null }));
+  const nextTree = await githubRequest(env, `/repos/${repository}/git/trees`, { method: 'POST', body: JSON.stringify({ base_tree: commit.tree.sha, tree }) });
+  const nextCommit = await githubRequest(env, `/repos/${repository}/git/commits`, { method: 'POST', body: JSON.stringify({ message: body.message || 'content: delete article', tree: nextTree.sha, parents: [ref.object.sha] }) });
+  await githubRequest(env, `/repos/${repository}/git/refs/heads/${encodeURIComponent(branch)}`, { method: 'PATCH', body: JSON.stringify({ sha: nextCommit.sha, force: false }) });
+  return jsonResponse({ ok: true, commit: nextCommit.sha });
 }
 
 // ─── Main router ────────────────────────────────────────────
@@ -325,7 +343,7 @@ export default {
 
     // Handle CORS preflight
     if (method === 'OPTIONS') {
-      return handleCORS();
+      return handleCORS(request, env);
     }
 
     // API routes
