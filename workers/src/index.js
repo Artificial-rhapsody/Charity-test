@@ -252,6 +252,69 @@ async function handleMe(request, env) {
   });
 }
 
+async function requireAdmin(request, env) {
+  const auth = request.headers.get('Authorization');
+  if (!auth || !auth.startsWith('Bearer ')) return null;
+  const payload = await verifyJWT(auth.slice(7), env.JWT_SECRET);
+  if (!payload || payload.role !== 'admin') return null;
+  const user = await getUser(env.USERS_KV, payload.sub);
+  return user && user.role === 'admin' ? user : null;
+}
+
+async function githubRequest(env, pathname, options = {}) {
+  if (!env.GITHUB_TOKEN || !env.GITHUB_REPOSITORY) throw new Error('GitHub publishing is not configured');
+  const response = await fetch(`https://api.github.com${pathname}`, {
+    ...options,
+    headers: {
+      Accept: 'application/vnd.github+json',
+      Authorization: 'Bearer ' + env.GITHUB_TOKEN,
+      'X-GitHub-Api-Version': '2022-11-28',
+      'User-Agent': 'CyberShield-Admin-Worker',
+      ...(options.headers || {}),
+    },
+  });
+  const data = response.status === 204 ? null : await response.json();
+  if (!response.ok) throw new Error(data?.message || `GitHub API returned ${response.status}`);
+  return data;
+}
+
+function validatePublishPath(filePath) {
+  return filePath === 'site.json' || filePath.startsWith('assets/site/') || /^content\/(articles|reports|honors)\/[0-9a-f-]{36}\/(index\.md|meta\.json|images\/[a-zA-Z0-9._-]+)$/.test(filePath);
+}
+
+async function createGitCommit(env, files, message) {
+  const repository = env.GITHUB_REPOSITORY;
+  const branch = env.GITHUB_BRANCH || 'main';
+  const ref = await githubRequest(env, `/repos/${repository}/git/ref/heads/${encodeURIComponent(branch)}`);
+  const baseCommit = await githubRequest(env, `/repos/${repository}/git/commits/${ref.object.sha}`);
+  const tree = [];
+  for (const file of files) {
+    if (!validatePublishPath(file.path)) throw new Error(`Publishing path is not allowed: ${file.path}`);
+    const bytes = file.encoding === 'base64' ? Uint8Array.from(atob(file.content), (character) => character.charCodeAt(0)) : new TextEncoder().encode(file.content);
+    let binary = '';
+    for (const byte of bytes) binary += String.fromCharCode(byte);
+    const blob = await githubRequest(env, `/repos/${repository}/git/blobs`, { method: 'POST', body: JSON.stringify({ content: btoa(binary), encoding: 'base64' }) });
+    tree.push({ path: file.path, mode: '100644', type: 'blob', sha: blob.sha });
+  }
+  const nextTree = await githubRequest(env, `/repos/${repository}/git/trees`, { method: 'POST', body: JSON.stringify({ base_tree: baseCommit.tree.sha, tree }) });
+  const commit = await githubRequest(env, `/repos/${repository}/git/commits`, { method: 'POST', body: JSON.stringify({ message: message || 'content: publish from admin console', tree: nextTree.sha, parents: [ref.object.sha] }) });
+  await githubRequest(env, `/repos/${repository}/git/refs/heads/${encodeURIComponent(branch)}`, { method: 'PATCH', body: JSON.stringify({ sha: commit.sha, force: false }) });
+  return commit.sha;
+}
+
+async function handleAdminPublish(request, env) {
+  if (!await requireAdmin(request, env)) return jsonResponse({ ok: false, error: 'Administrator access required' }, 403);
+  const body = await request.json();
+  if (!Array.isArray(body.files) || !body.files.length || body.files.length > 100) return jsonResponse({ ok: false, error: 'A publish must contain 1–100 files' }, 400);
+  const sha = await createGitCommit(env, body.files, body.message);
+  return jsonResponse({ ok: true, commit: sha });
+}
+
+async function handleAdminDelete(request, env) {
+  if (!await requireAdmin(request, env)) return jsonResponse({ ok: false, error: 'Administrator access required' }, 403);
+  return jsonResponse({ ok: false, error: 'Remote recursive deletion will be enabled during deployment setup' }, 501);
+}
+
 // ─── Main router ────────────────────────────────────────────
 
 export default {
@@ -274,6 +337,13 @@ export default {
     }
     if (pathname === '/api/me' && method === 'GET') {
       return handleMe(request, env);
+    }
+    if (pathname === '/api/admin/publish' && method === 'POST') {
+      try { return await handleAdminPublish(request, env); }
+      catch (error) { return jsonResponse({ ok: false, error: error.message }, 400); }
+    }
+    if (pathname === '/api/admin/delete' && method === 'POST') {
+      return handleAdminDelete(request, env);
     }
 
     // Health check

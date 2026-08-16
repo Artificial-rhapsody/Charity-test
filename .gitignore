@@ -1,2 +1,4 @@
 /.wrangler
 /workers/node_modules
+/node_modules
+/dev-page

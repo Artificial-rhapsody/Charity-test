@@ -3,8 +3,9 @@ main = "src/index.js"
 compatibility_date = "2024-12-01"
 
 [vars]
-JWT_SECRET = "cybershield-dev-secret-change-in-production"
 ENVIRONMENT = "development"
+GITHUB_REPOSITORY = "OWNER/Charity-test"
+GITHUB_BRANCH = "main"
 
 # Create KV namespace with: wrangler kv namespace create USERS_KV
 # Then fill in the IDs below

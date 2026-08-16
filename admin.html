@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Console — CyberShield</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <aside class="admin-sidebar">
+    <a href="index.html" class="admin-brand"><span>♥</span> MS.WYH</a>
+    <div class="admin-caption">ADMIN CONSOLE</div>
+    <nav><button class="admin-nav active" data-panel="dashboard" type="button">Overview</button><button class="admin-nav" data-panel="homepage" type="button">Homepage Editor</button><button class="admin-nav" data-panel="articles" type="button">Article Manager</button></nav>
+    <div class="admin-side-footer"><span id="adminIdentity">Local development</span><button id="logoutButton" type="button">Log out</button></div>
+  </aside>
+
+  <main class="admin-main">
+    <header class="admin-topbar"><div><span class="eyebrow">CYBERSHIELD CMS</span><h1 id="panelTitle">Overview</h1></div><div class="mode-badge" id="modeBadge">Detecting mode…</div></header>
+
+    <section class="admin-panel active" id="panel-dashboard">
+      <div class="metric-grid"><article><span>Published content</span><strong id="metricArticles">0</strong></article><article><span>Homepage fields</span><strong id="metricFields">0</strong></article><article><span>Publishing target</span><strong id="metricTarget">Local</strong></article></div>
+      <div class="admin-card intro-card"><div><span class="eyebrow">WORKFLOW</span><h2>Edit, inspect, publish.</h2><p>The homepage editor mirrors the live site without allowing layout changes. The article manager writes Markdown, metadata, and images into the fixed content tree.</p></div><ol><li>Start <code>node build.js --dev</code>.</li><li>Open <code>dev-page/index.html</code> with Live Server.</li><li>Publish changes here; the local bridge rebuilds <code>dev-page/</code>.</li></ol></div>
+    </section>
+
+    <section class="admin-panel" id="panel-homepage">
+      <div class="editor-toolbar"><p><strong>Click</strong> a highlighted element to edit text. <strong>Double-click</strong> an image to replace it. Layout is locked.</p><button class="primary-action" id="publishSite" type="button">Publish Homepage</button></div>
+      <div class="homepage-editor-shell"><iframe id="homepageFrame" src="index.html?editor=1" title="Editable homepage preview"></iframe></div>
+      <aside class="property-panel" id="propertyPanel" hidden><button class="property-close" id="propertyClose" type="button">×</button><span class="eyebrow">SELECTED CONTENT</span><h3 id="propertyTitle">Edit content</h3><label>Value<textarea id="propertyValue" rows="7"></textarea></label><label id="propertyFileLabel" hidden>Upload image<input type="file" id="propertyFile" accept="image/*"></label><button class="secondary-action" id="applyProperty" type="button">Apply to Preview</button></aside>
+    </section>
+
+    <section class="admin-panel" id="panel-articles">
+      <div class="article-manager-layout">
+        <aside class="article-list-panel"><div class="list-heading"><div><span class="eyebrow">CONTENT</span><h2>Published</h2></div><button class="icon-button" id="newArticle" type="button" aria-label="New article">+</button></div><input type="search" id="managerSearch" placeholder="Filter titles…"><div class="manager-list" id="managerList"></div></aside>
+        <section class="article-editor">
+          <div class="editor-heading"><div><span class="eyebrow">MARKDOWN EDITOR</span><h2 id="editorHeading">New Article</h2></div><div><button class="danger-action" id="deleteArticle" type="button" hidden>Delete</button><button class="primary-action" id="publishArticle" type="button">Publish Article</button></div></div>
+          <div class="article-fields"><label>Section<select id="articleSection"><option value="articles">Articles</option><option value="reports">Reports</option><option value="honors">Honors</option></select></label><label>Published date<input type="date" id="articleDate"></label><label class="wide">Title<input type="text" id="articleTitleInput"></label><label class="wide">Summary<textarea id="articleSummaryInput" rows="3"></textarea></label><label>Author<input type="text" id="articleAuthorInput" value="CyberShield"></label><label>Manual order<input type="number" id="articleOrder" min="0" value="0"></label><label class="check-field"><input type="checkbox" id="articlePinned"> Pinned</label><label>Import document<input type="file" id="documentImport" accept=".md,.txt,.docx"></label></div>
+          <div class="markdown-toolbar"><button type="button" data-insert="**bold**">Bold</button><button type="button" data-insert="## Heading">Heading</button><button type="button" data-insert="> Quote">Quote</button><button type="button" data-insert="- [ ] Task">Task</button><label class="toolbar-upload">Insert image<input type="file" id="articleImages" accept="image/*" multiple></label></div>
+          <div class="markdown-split"><textarea id="articleMarkdown" spellcheck="true" placeholder="# Article title\n\nWrite Markdown here…"></textarea><article class="markdown-preview" id="markdownPreview"></article></div>
+          <div class="draft-note">Drafts are saved in this browser automatically. Publishing writes <code>index.md</code>, <code>meta.json</code>, and <code>images/</code>.</div>
+        </section>
+      </div>
+    </section>
+  </main>
+  <div class="admin-toast" id="adminToast"></div>
+  <script src="https://cdn.jsdelivr.net/npm/mammoth@1.10.0/mammoth.browser.min.js"></script>
+  <script src="content-utils.js"></script><script src="admin.js"></script>
+</body>
+</html>
