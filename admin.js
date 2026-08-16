@@ -71,11 +71,10 @@ async function detectMode() {
 function requireAdmin() {
   const host = location.hostname;
   const local = host === '127.0.0.1' || host === 'localhost' || host === '';
-  const preview = new URLSearchParams(location.search).get('preview') === '1';
   let user = null;
   try { user = JSON.parse(localStorage.getItem('cybershield_user') || 'null'); } catch { user = null; }
-  if (!local && !preview && user?.role !== 'admin') { location.replace('index.html'); return false; }
-  $('adminIdentity').textContent = preview ? 'Read-only deployment preview' : local ? 'Local administrator preview' : `${user.name} · Administrator`;
+  if (!local && user?.role !== 'admin') { location.replace('index.html'); return false; }
+  $('adminIdentity').textContent = local ? 'Local administrator preview' : `${user.name} · Administrator`;
   return true;
 }
 
