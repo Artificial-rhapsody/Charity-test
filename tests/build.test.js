@@ -5,7 +5,7 @@ const os = require('node:os');
 const path = require('node:path');
 
 const { collectArticles, compareArticles, normalizeSection } = require('../build.js');
-const { renderMarkdown, videoEmbedUrl } = require('../content-utils.js');
+const { renderMarkdown, videoEmbedUrl, completeRegistration } = require('../content-utils.js');
 
 test('normalizeSection accepts the three text sections only', () => {
   assert.equal(normalizeSection('Articles'), 'articles');
@@ -58,4 +58,15 @@ test('videoEmbedUrl parses Bilibili and YouTube links', () => {
   assert.match(videoEmbedUrl('https://www.bilibili.com/video/BV1LN411o7YY'), /player\.bilibili\.com.*BV1LN411o7YY/);
   assert.equal(videoEmbedUrl('https://youtu.be/dQw4w9WgXcQ'), 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1');
   assert.equal(videoEmbedUrl('https://example.com/video'), '');
+});
+
+test('completeRegistration resets the submitted form and opens the success modal', () => {
+  let resetCalled = false;
+  const form = { reset() { resetCalled = true; } };
+  const modal = { classList: { active: false, add(name) { this[name] = true; } } };
+
+  completeRegistration(form, modal);
+
+  assert.equal(resetCalled, true);
+  assert.equal(modal.classList.active, true);
 });

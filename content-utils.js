@@ -122,5 +122,10 @@
     return String(html).replace(/(<img\s+[^>]*src=")((?!https?:|\/)[^"]+)(")/gi, `$1${assetBase}$2$3`);
   }
 
-  return { escapeHtml, renderMarkdown, videoEmbedUrl, resolveArticleImages };
+  function completeRegistration(form, successModal) {
+    form.reset();
+    successModal.classList.add('active');
+  }
+
+  return { escapeHtml, renderMarkdown, videoEmbedUrl, resolveArticleImages, completeRegistration };
 });

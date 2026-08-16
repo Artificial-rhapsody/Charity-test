@@ -160,15 +160,16 @@ function setupInteraction() {
   byId('successModalOk').addEventListener('click', closeSuccess);
   byId('contactForm').addEventListener('submit', async (event) => {
     event.preventDefault();
-    const data = Object.fromEntries(new FormData(event.currentTarget));
+    const form = event.currentTarget;
+    const data = Object.fromEntries(new FormData(form));
     if (data.password !== data.passwordConfirm) return toast('Passwords do not match.', 'error');
-    const button = event.currentTarget.querySelector('button[type="submit"]');
+    const button = form.querySelector('button[type="submit"]');
     button.disabled = true;
     try {
       const response = await fetch(`${API_BASE}/api/register`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
       const result = await response.json();
       if (!response.ok || !result.ok) throw new Error(result.error || 'Registration failed');
-      event.currentTarget.reset(); byId('successModal').classList.add('active');
+      CONTENT.completeRegistration(form, byId('successModal'));
     } catch (error) { toast(error.message, 'error'); }
     finally { button.disabled = false; }
   });
