@@ -6,11 +6,26 @@
     "pageTitle": "CyberShield — Youth Anti-Fraud Initiative"
   },
   "navigation": [
-    { "label": "Home", "href": "#hero" },
-    { "label": "Videos", "href": "#videos" },
-    { "label": "Articles", "href": "#articles" },
-    { "label": "Reports", "href": "#reports" },
-    { "label": "Honors", "href": "#honors" }
+    {
+      "label": "Home",
+      "href": "#hero"
+    },
+    {
+      "label": "Videos",
+      "href": "#videos"
+    },
+    {
+      "label": "Articles",
+      "href": "#articles"
+    },
+    {
+      "label": "Reports",
+      "href": "#reports"
+    },
+    {
+      "label": "Honors",
+      "href": "#honors"
+    }
   ],
   "hero": {
     "title": "Protect Youth\nDefeat Fraud",
@@ -20,9 +35,21 @@
     "image": "https://picsum.photos/960/1080?random=1",
     "imageAlt": "Youth anti-fraud education",
     "stats": [
-      { "value": 50000, "suffix": "+", "label": "Youth Reached" },
-      { "value": 120, "suffix": "+", "label": "Campus Talks" },
-      { "value": 30, "suffix": "+", "label": "Partner Schools" }
+      {
+        "value": 365,
+        "suffix": "+",
+        "label": "Youth Reached"
+      },
+      {
+        "value": 120,
+        "suffix": "+",
+        "label": "Campus Talks"
+      },
+      {
+        "value": 30,
+        "suffix": "+",
+        "label": "Partner Schools"
+      }
     ]
   },
   "videos": {
@@ -65,10 +92,22 @@
       "description": "Documenting every campus and community anti-fraud campaign — measuring our impact with real data.",
       "capacity": 1,
       "stats": [
-        { "value": "35,000+", "label": "Students Reached" },
-        { "value": "128", "label": "Workshops Held" },
-        { "value": "56", "label": "Schools Visited" },
-        { "value": "20M+", "label": "Video Views" }
+        {
+          "value": "35,000+",
+          "label": "Students Reached"
+        },
+        {
+          "value": "128",
+          "label": "Workshops Held"
+        },
+        {
+          "value": "56",
+          "label": "Schools Visited"
+        },
+        {
+          "value": "20M+",
+          "label": "Video Views"
+        }
       ]
     },
     "honors": {
