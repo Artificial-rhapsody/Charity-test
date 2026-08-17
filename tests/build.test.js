@@ -70,3 +70,15 @@ test('completeRegistration resets the submitted form and opens the success modal
   assert.equal(resetCalled, true);
   assert.equal(modal.classList.active, true);
 });
+
+test('homepage editor setup source handles an iframe that is already loaded', () => {
+  const source = fs.readFileSync(path.join(__dirname, '..', 'admin.js'), 'utf8');
+  assert.match(source, /frame\.contentDocument\?\.readyState === 'complete'/);
+  assert.match(source, /activateHomepageFrame\(frame\)/);
+});
+
+test('homepage editor blocks navigation inside its preview frame', () => {
+  const source = fs.readFileSync(path.join(__dirname, '..', 'admin.js'), 'utf8');
+  assert.match(source, /event\.target\.closest\('a, button, form'\)/);
+  assert.match(source, /event\.preventDefault\(\)/);
+});

@@ -122,22 +122,42 @@ function openProperty(element) {
   $('propertyPanel').hidden = false;
 }
 
+function activateHomepageFrame(frame) {
+  const doc = frame.contentDocument;
+  if (!doc || doc.documentElement.dataset.homepageEditorActive === 'true') return;
+  doc.documentElement.dataset.homepageEditorActive = 'true';
+  styleEditableDocument(doc);
+  doc.addEventListener('click', (event) => {
+    const element = event.target.closest('[data-site-path]');
+    if (element) {
+      event.preventDefault();
+      event.stopPropagation();
+      openProperty(element);
+      return;
+    }
+    if (event.target.closest('a, button, form')) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+  doc.addEventListener('submit', (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+  }, true);
+  doc.addEventListener('dblclick', (event) => {
+    const element = event.target.closest('img[data-site-path]');
+    if (!element) return;
+    event.preventDefault();
+    event.stopPropagation();
+    openProperty(element);
+    $('propertyFile').click();
+  }, true);
+}
+
 function initializeHomepageEditor() {
   const frame = $('homepageFrame');
-  frame.addEventListener('load', () => {
-    const doc = frame.contentDocument;
-    styleEditableDocument(doc);
-    doc.addEventListener('click', (event) => {
-      const element = event.target.closest('[data-site-path]');
-      if (!element) return;
-      event.preventDefault(); event.stopPropagation(); openProperty(element);
-    }, true);
-    doc.addEventListener('dblclick', (event) => {
-      const element = event.target.closest('img[data-site-path]');
-      if (!element) return;
-      event.preventDefault(); openProperty(element); $('propertyFile').click();
-    }, true);
-  });
+  frame.addEventListener('load', () => activateHomepageFrame(frame));
+  if (frame.contentDocument?.readyState === 'complete') activateHomepageFrame(frame);
   $('propertyClose').addEventListener('click', () => { $('propertyPanel').hidden = true; });
   $('applyProperty').addEventListener('click', () => {
     if (!selectedPath || !selectedElement) return;
