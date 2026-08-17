@@ -29,7 +29,7 @@
   ],
   "hero": {
     "title": "Protect Youth\nDefeat Fraud",
-    "description": "A public welfare platform dedicated to educating teenagers about telecom fraud prevention. Knowledge is the first line of defense.",
+    "description": "A public welfare platform dedicated to educating teenagers about telecom fraud prevention. Knowledge is the first line of defense. Testtest",
     "primaryButton": "Watch Videos",
     "secondaryButton": "Volunteer",
     "image": "assets/site/ee5b0426-f9ea-4182-86df-e1dd4513e1a8.jpg",
@@ -41,7 +41,7 @@
         "label": "Youth Reached"
       },
       {
-        "value": 120,
+        "value": 140,
         "suffix": "+",
         "label": "Campus Talks"
       },
